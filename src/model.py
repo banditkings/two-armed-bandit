@@ -29,12 +29,18 @@ class game():
         self._make_figs(selected_arm)
 
     def score(self):
+        """Share the number of points and rounds both arms"""
         print(f"points: {self.points}, rounds: {self.rounds}")
     
     def show_answers(self):
+        """Reveal the actual underlying probabilities (p)"""
         print(self.p)
 
     def _make_figs(self, selected_arm):
+        """
+        helper function to update the plotly figures for the selected arm given. The resulting figs
+        should show the old curves as 'greyed out' and the latest curve in blue.
+        """
         n = self.rounds[selected_arm]
         k = self.points[selected_arm]
 
@@ -52,4 +58,5 @@ class game():
         self.figs[selected_arm].update_layout(showlegend=False)
         
     def show_fig(self, selected_arm):
+        """one-liner to return the figure object of the selected arm for feeding the dashboard"""
         return self.figs[selected_arm]
