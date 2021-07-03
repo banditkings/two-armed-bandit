@@ -17,10 +17,10 @@ header = html.Div([
     dbc.Row(dbc.Col(html.H1("Two Armed Bandits"))),
 ])
 
-row = html.Div([
-        dbc.Row([html.H1("Placeholder"), html.P(id='example-output')])
-    ], style={'padding': '25px'}
-)
+# row = html.Div([
+#         dbc.Row([html.H1(id='output-score')])
+#     ], style={'padding': '25px'}
+# )
 
 def serve_layout():
     """Function to serve layout such that it refreshes on page load"""
@@ -30,27 +30,71 @@ def serve_layout():
     layout = html.Div([
                 header,
                 dbc.Row([
-                    dbc.Col(dbc.Button("Pull 1", id='button1', n_clicks=0)),
-                    dbc.Col(dbc.Button("Pull 2", id='button2', n_clicks=0))
+                    dbc.Col([
+                        dbc.Button("Pull Arm 1", id='button1', n_clicks=0),
+                        dbc.Button("Pull Arm 1 x10", id='button1_10', n_clicks=0)
+                        ]),
+                    dbc.Col([
+                        dbc.Button("Pull Arm 2", id='button2', n_clicks=0),
+                        dbc.Button("Pull Arm 2 x10", id='button2_10', n_clicks=0)
+                        ])
                 ]),
                 dbc.Row([
                     dbc.Col(dcc.Graph(id='fig1')),
-                    dbc.Col(dcc.Graph(figure=g.show_fig(1)))
+                    dbc.Col(dcc.Graph(id='fig2'))
                 ]),
-                row
+                html.Div([
+                    dbc.Row([html.H1(id='output-score')])
+                    ], style={'padding': '25px'}),
             ])
     return layout
 
 @app.callback(
-    Output("fig1", "figure"), [Input("button1", "n_clicks")]
+    Output("fig1", "figure"),
+    [Input("button1", "n_clicks"),
+    Input("button1_10", "n_clicks")]
 )
-def on_button_click(n):
-    if n is None:
-        return "Not clicked."
+def singlebet_0(n, n10):    
+    """make a single bet on arm 0"""
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+    if 'button1_10' in changed_id:
+        g.make_bet(0, 10)
+        return g.show_fig(0)
+    elif 'button1' in changed_id:
+        g.make_bet(0, 1)
+        return g.show_fig(0)
     else:
-        global g
-        g.make_bet(0)
-        return g.show_fig(0) 
+        return g.show_fig(0)
+
+@app.callback(
+    Output("fig2", "figure"),    
+    [Input("button2", "n_clicks"),
+    Input("button2_10", "n_clicks")]
+)
+def singlebet_1(n, n10):
+    """make a single bet on arm 1"""
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+    if 'button2_10' in changed_id:
+        g.make_bet(1, 10)
+        return g.show_fig(1)
+    elif 'button2' in changed_id:
+        g.make_bet(1, 1)
+        return g.show_fig(1)
+    else:
+        return g.show_fig(1)
+
+@app.callback(
+    Output("output-score", "children"),
+    [Input("button1", "n_clicks"),
+    Input("button1_10", "n_clicks"),
+    Input("button2", "n_clicks"),
+    Input("button2_10", "n_clicks")]
+)
+def return_score(n1, n2, n3, n4):
+    changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
+    if 'button' in changed_id:
+        result = g.score()
+        return result
 
 app.layout = serve_layout
 

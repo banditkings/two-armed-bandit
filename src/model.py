@@ -16,8 +16,7 @@ class game():
         self.priors = {0:np.ones(1000), 1:np.ones(1000)}
         self.p_grid = np.linspace(0, 1, 1000)
         self.figs = {0:go.Figure(),
-                     1:go.Figure()
-                     }
+                     1:go.Figure()}
     
     def make_bet(self, selected_arm: int, n=1):
         """Make 'n' bets on the selected arm and add points if our rng is less than the probability p"""
@@ -30,7 +29,7 @@ class game():
 
     def score(self):
         """Share the number of points and rounds both arms"""
-        print(f"points: {self.points}, rounds: {self.rounds}")
+        return(f"points: {self.points}, rounds: {self.rounds}")
     
     def show_answers(self):
         """Reveal the actual underlying probabilities (p)"""
