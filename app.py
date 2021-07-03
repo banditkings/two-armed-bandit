@@ -17,10 +17,10 @@ header = html.Div([
     dbc.Row(dbc.Col(html.H1("Two Armed Bandits"))),
 ])
 
-# row = html.Div([
-#         dbc.Row([html.H1(id='output-score')])
-#     ], style={'padding': '25px'}
-# )
+row = html.Div([
+        dbc.Row([html.H2(id='output-score')])
+    ], style={'padding': '25px'}
+)
 
 def serve_layout():
     """Function to serve layout such that it refreshes on page load"""
@@ -43,9 +43,7 @@ def serve_layout():
                     dbc.Col(dcc.Graph(id='fig1')),
                     dbc.Col(dcc.Graph(id='fig2'))
                 ]),
-                html.Div([
-                    dbc.Row([html.H1(id='output-score')])
-                    ], style={'padding': '25px'}),
+                row
             ])
     return layout
 
@@ -94,7 +92,7 @@ def return_score(n1, n2, n3, n4):
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
     if 'button' in changed_id:
         result = g.score()
-        return result
+        return f"${sum(g.points.values())} earned out of {sum(g.rounds.values())} rounds."
 
 app.layout = serve_layout
 

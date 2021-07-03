@@ -17,7 +17,7 @@ class game():
         self.p_grid = np.linspace(0, 1, 1000)
         self.figs = {0:go.Figure(),
                      1:go.Figure()}
-    
+
     def make_bet(self, selected_arm: int, n=1):
         """Make 'n' bets on the selected arm and add points if our rng is less than the probability p"""
         selection = self.p[selected_arm]
@@ -30,7 +30,7 @@ class game():
     def score(self):
         """Share the number of points and rounds both arms"""
         return(f"points: {self.points}, rounds: {self.rounds}")
-    
+
     def show_answers(self):
         """Reveal the actual underlying probabilities (p)"""
         print(self.p)
@@ -55,7 +55,7 @@ class game():
         self.figs[selected_arm].add_scatter(x=self.p_grid, y=posterior, mode='lines', marker_color='Blue')
         self.figs[selected_arm].update_layout(title=f"{k} successes out of {n} trials")
         self.figs[selected_arm].update_layout(showlegend=False)
-        
+
     def show_fig(self, selected_arm):
         """one-liner to return the figure object of the selected arm for feeding the dashboard"""
         return self.figs[selected_arm]
