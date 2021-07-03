@@ -15,11 +15,11 @@ The nice thing about Dash at my work is that I had some starter code to work wit
 
 ## TODO:
 
-[ ] Update app to include 2nd arm interaction
-[ ] Add total player score method
-[ ] Add button to bet x10 for each arm
-[ ] Add main content to describe the problem
-[ ] Deploy POC app to Heroku
+* [ ] Update app to include 2nd arm interaction
+* [ ] Add total player score method
+* [ ] Add button to bet x10 for each arm
+* [ ] Add main content to describe the problem
+* [ ] Deploy POC app to Heroku
 
 # Usage
 
