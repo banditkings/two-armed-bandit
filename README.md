@@ -14,12 +14,17 @@ Ultimately what I'd like to do is to be able to quickly build a POC model and be
 
 The nice thing about Dash at my work is that I had some starter code to work with in order to implement SSO (single sign-on) for a basic flask app. I know Streamlit is out there but I want to see how fast I can put something together in Dash, especially considering the upcoming release of Dash 2.0 will allow for more templating options so I can build templates for common layouts using my internal corporate theming.
 
+### Annoyances
+
+One of the bad things about using Dash as opposed to Streamlit is that the entire thing has to be designed around making it work with callbacks, and Streamlit is supposed to be able to abstract away a lot of that annoying stuff and lets you get interactivity very quickly. It took me an embarassing amount of time to debug some callbacks that I had planned vs what I was able to do within Dash. Something to consider if the intent is to move quickly.
+
 ## TODO
 
 * [x] Update app to include 2nd arm interaction
 * [x] Add total player score method
 * [x] Add button to bet x10 for each arm
 * [ ] Add main content to describe the problem
+* [ ] Update CSS to make it pretty
 * [ ] Deploy POC app to Heroku
 
 ## Usage
@@ -31,6 +36,10 @@ cd two-armed-bandit
 pip install -r requirements.txt
 python app.py
 ```
+
+## What it Looks Like Now:
+
+![img](assets/screenshot.png)
 
 ## Reference
 
