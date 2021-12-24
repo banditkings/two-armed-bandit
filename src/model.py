@@ -1,22 +1,23 @@
 import numpy as np
-import pandas as pd
+# import pandas as pd
 from scipy.stats import binom
 import plotly.graph_objects as go
-import plotly.express as px
+# import plotly.express as px
+
 
 class game():
     def __init__(self):
         """Initialize the game with two arms, each with their unique probabilities 'p' of success"""
-        if np.random.choice([0,1]) == 0:
+        if np.random.choice([0, 1]) == 0:
             self.p = np.array([0.5, 0.7])
         else:
             self.p = np.array([0.7, 0.5])
-        self.points = {0:0, 1:0}
-        self.rounds = {0:0, 1:0}
-        self.priors = {0:np.ones(1000), 1:np.ones(1000)}
+        self.points = {0: 0, 1: 0}
+        self.rounds = {0: 0, 1: 0}
+        self.priors = {0: np.ones(1000), 1: np.ones(1000)}
         self.p_grid = np.linspace(0, 1, 1000)
-        self.figs = {0:go.Figure(),
-                     1:go.Figure()}
+        self.figs = {0: go.Figure(),
+                     1: go.Figure()}
 
     def make_bet(self, selected_arm: int, n=1):
         """Make 'n' bets on the selected arm and add points if our rng is less than the probability p"""
@@ -37,14 +38,15 @@ class game():
 
     def _make_figs(self, selected_arm):
         """
-        helper function to update the plotly figures for the selected arm given. The resulting figs
-        should show the old curves as 'greyed out' and the latest curve in blue.
+        helper function to update the plotly figures for the selected arm. 
+        The resulting figs should show the old curves as 'greyed out' and 
+        the latest curve in blue.
         """
         n = self.rounds[selected_arm]
         k = self.points[selected_arm]
 
         # Start with uniform prior
-        prob_data = binom.pmf(k=k, n=n, p=self.p_grid) # Likelihood 
+        prob_data = binom.pmf(k=k, n=n, p=self.p_grid)  # Likelihood
         # The binom.pmf function returns the probability of k successes over n trials when the probability of success is p
         # We want to plot the likelihood of each of these models across all values of p from 0 to 1
         posterior = prob_data * self.priors[selected_arm]

@@ -30,6 +30,7 @@ One of the bad things about using Dash as opposed to Streamlit is that the entir
 ## Usage
 
 Clone the repository and install dependencies, then run the app:
+
 ```bash
 git clone https://github.com/banditkings/two-armed-bandit.git
 cd two-armed-bandit
@@ -37,7 +38,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## What it Looks Like Now:
+## What it Looks Like Now
 
 ![img](assets/screenshot.png)
 
