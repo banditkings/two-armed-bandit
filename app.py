@@ -8,13 +8,13 @@ from src.model import game
 
 fontawesome_stylesheet = "https://use.fontawesome.com/releases/v5.8.1/css/all.css"
 
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP,
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP,
                                       fontawesome_stylesheet])
 
 header = dbc.Navbar(
     dbc.Container([
-        dbc.NavbarBrand("Two Armed Bandits", className='ms-2 g-0')
-        ])
+        dbc.NavbarBrand("Two Armed Bandits", class_name='navtitle')
+        ], fluid=True),
     )
 
 score = dbc.Container([
@@ -45,7 +45,8 @@ def serve_layout():
                     dbc.Col(dcc.Graph(id='fig2'))
                 ]),
                 score
-            ])
+            ],
+            fluid=True)
     return layout
 
 
@@ -91,8 +92,8 @@ def singlebet_1(n, n10):
 def return_score(n1, n2, n3, n4):
     changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
     if 'button' in changed_id:
-        result = g.score()
-        return f"${sum(g.points.values())} earned out of {sum(g.rounds.values())} rounds.\n Result = {result}"
+        # result = g.score()
+        return f"${sum(g.points.values())} earned out of {sum(g.rounds.values())} rounds."
 
 
 app.layout = serve_layout
